@@ -6,7 +6,7 @@ import re
 import tempfile
 import time
 import traceback
-from datetime import date
+from datetime import datetime, date
 from typing import List, Optional, Any, Tuple
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -192,7 +192,9 @@ class LinkedInEasyApplier:
                 self._create_and_upload_cover_letter(element)
 
     def _create_and_upload_resume(self, element, job):
-        folder_path = 'generated_cv'
+        base_folder_path = 'generated_cv'
+        today_date = datetime.now().strftime("%d-%m-%Y")
+        folder_path = os.path.join(base_folder_path, today_date)
         os.makedirs(folder_path, exist_ok=True)
         try:
             file_path_pdf = os.path.join(folder_path, f"CV_{random.randint(0, 9999)}.pdf")
